@@ -1,6 +1,6 @@
 {
   "name": "Marco's Web Resume Portfolio",
-  "description": "A modern, minimalist, and responsive web resume and options landing page for quantitative developer Marco, featuring an interactive Options & Greeks Calculator and Agent spotlight.",
+  "description": "A modern, high-contrast single-page web resume and portfolio for Lead Quantitative Software Developer Marco, featuring an interactive Black-Scholes options Greeks valuation engine and curated fintech projects.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

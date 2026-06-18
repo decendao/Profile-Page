@@ -84,7 +84,7 @@ export default function PricerWidget() {
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 border border-brand-border bg-white font-mono text-[10px] font-black text-brand-border uppercase tracking-widest shadow-[2px_2px_0px_#0a0a0a]">
             <RefreshCw className="w-3.5 h-3.5 text-brand-cyan animate-spin duration-10000" />
-            <span>Interactive Risk Sandbox</span>
+            <span>Quantitative Valuation</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-black tracking-tighter text-brand-border uppercase italic leading-none">
             Black-Scholes Options & Greeks Tool

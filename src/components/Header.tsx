@@ -71,7 +71,7 @@ export default function Header() {
               </h1>
               <span className="inline-block w-2.5 h-2.5 rounded-full bg-brand-green animate-pulse" />
               <span className="text-[10px] font-mono text-brand-green font-bold uppercase tracking-widest hidden sm:inline">
-                Agent Live
+                Systems Active
               </span>
             </div>
             <p className="text-[11px] text-brand-border/70 font-semibold uppercase tracking-wider">
@@ -91,12 +91,12 @@ export default function Header() {
             <span className="text-brand-border font-black">${ethPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="text-brand-border/50 font-bold uppercase">SYS_Δ:</span>
-            <span className="text-brand-green font-black">+{greeksState.delta.toFixed(3)}</span>
+            <span className="text-brand-border/50 font-bold uppercase">RFR (r):</span>
+            <span className="text-brand-green font-black">4.50%</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="text-brand-border/50 font-bold uppercase">SYS_Γ:</span>
-            <span className="text-brand-cyan font-black">{greeksState.gamma.toFixed(4)}</span>
+            <span className="text-brand-border/50 font-bold uppercase">VIX (σ):</span>
+            <span className="text-brand-cyan font-black">14.85%</span>
           </div>
         </div>
 

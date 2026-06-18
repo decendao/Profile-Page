@@ -3,67 +3,55 @@ import { Experience, Project, SkillCategory, AgentAction } from '../types';
 export const PERSONAL_INFO = {
   name: "Marco",
   fullName: "Marco Lingpeng",
-  title: "Lead Quantitative Developer & AI Agent Architect",
+  title: "Lead Quantitative Software Developer",
   location: "Singapore / Remote",
   email: "decenfund@gmail.com",
   github: "https://github.com/decendao",
   githubUsername: "decendao",
-  tagline: "Bridging quantitative derivatives trading with state-of-the-art LLM-agent architectures.",
-  about: "I am a quantitative software engineer specializing in equity/crypto option derivatives, low-latency execution interfaces, and autonomous agent systems. As the creator of Option-Agent-Dashboard-React, I develop reliable frontends and multi-agent systems designed to model markets, evaluate real-time Risk Greeks (Delta, Gamma, Theta, Vega), and automate risk-neutral hedging strategies using state-of-the-art LLM capabilities."
+  tagline: "Building high-performance quantitative systems, options pricing backends, and full-stack execution interfaces.",
+  about: "I am a senior quantitative software engineer specializing in equity and crypto option derivatives, real-time risk engines, and execution routing systems. I design and implement low-latency pricing microservices, high-frequency data ingestion pipelines, and responsive web terminals to analyze and capture real-time risk metrics (Delta, Gamma, Vega, Theta)."
 };
 
 export const PROJECTS: Project[] = [
   {
-    title: "Option-Agent-Dashboard-React",
-    subtitle: "Orchestrated Multi-Agent Option Trading system",
-    description: "An advanced responsive web platform designed to co-ordinate autonomous AI trading agents. The platform models real-time option chains, computes Black-Scholes Greeks, simulates option strategies, and tracks live-streaming agent logical prompts and actions.",
-    metrics: [
-      { label: "Stars", value: "98+" },
-      { label: "Greeks Computed / sec", value: "24,000+" },
-      { label: "Agent latency", value: "110ms" },
-      { label: "Risk Reduction", value: "-34%" }
-    ],
-    tags: ["React 19", "TypeScript", "Tailwind CSS", "Framer Motion", "Recharts", "Google Gemini SDK", "WebSockets"],
-    githubUrl: "https://github.com/decendao/Option-Agent-Dashboard-React",
-    demoUrl: "#calculator"
-  },
-  {
     title: "Derivatives Volatility Surface Mapper",
     subtitle: "High-Frequency Volatility Curve Analysis",
-    description: "A continuous data ingestion pipeline and real-time visualization dashboard mapping implied volatility curves and smile smiles across multiple expirations. Integrates with historical broker APIs and optimizes fit-metrics using cubic spline interpolation.",
+    description: "A continuous data ingestion pipeline and real-time visualization dashboard mapping implied volatility curves and volatility smiles across multiple contracts and expirations. Integrates with historical broker APIs and optimizes fit-metrics using cubic spline interpolation.",
     metrics: [
       { label: "API Thruput", value: "2M req/day" },
       { label: "Chart Render Delay", value: "12ms" },
-      { label: "Data Accuracy", value: "99.98%" }
+      { label: "Data Accuracy", value: "99.98%" },
+      { label: "Model Fit Rate", value: "98.7%" }
     ],
-    tags: ["D3.js", "Canvas2D", "FastAPI", "Python", "NumPy", "SciPy"],
+    tags: ["React", "TypeScript", "D3.js", "Canvas2D", "FastAPI", "Python", "NumPy", "SciPy"],
     githubUrl: "https://github.com/decendao"
   },
   {
     title: "Broker API Router (Liquidity Aggregator)",
-    subtitle: "Execution Gateway for Crypto Options",
-    description: "A secure, hot-swappable routing middleware facilitating order placement and risk management on Deribit and Paradigm platforms. Employs circuit-breaker patterns to manage API rate limits and execution slippage during high-volatility events.",
+    subtitle: "Execution Gateway for Options Liquidity",
+    description: "A secure, hot-swappable routing middleware facilitating order placement and client risk management on major platforms like Deribit and Paradigm. Employs circuit-breaker patterns and rate-limiting queues to manage slippage during periods of extreme high-volatility.",
     metrics: [
       { label: "Execution Slippage", value: "< 0.05%" },
       { label: "Latency Over Wire", value: "8ms" },
       { label: "Daily Volume", value: "$4.5M+" }
     ],
-    tags: ["Node.js", "Express", "REST", "Redis", "RxJS", "Docker"]
+    tags: ["Node.js", "Express", "REST API", "Redis", "RxJS", "Docker", "Hole-punching UI"],
+    githubUrl: "https://github.com/decendao"
   }
 ];
 
 export const EXPERIENCES: Experience[] = [
   {
     company: "Apex Quant Labs",
-    role: "Lead Quantitative Developer / AI Engineer",
+    role: "Lead Quantitative Developer",
     period: "2024 - Present",
     location: "Singapore / Hybrid",
     description: [
-      "Architected and deployed an autonomous agentic system for multi-broker crypto options execution, linking the Gemini API with active market books.",
-      "Engineered full-stack real-time React dashboards demonstrating multi-dimensional risks, rendering 50+ updates/second using highlyoptimized hook setups.",
-      "Built customized, responsive pricing engines computing Black-Scholes Greeks on customer browsers directly to drastically reduce server overhead."
+      "Engineered real-time options pricing calculators capable of computing Black-Scholes Greeks with ultra-low latency directly within browser hook cycles.",
+      "Designed full-stack multi-broker risk dashboards in React, streaming up to 50+ updates/second with clean web vitals and optimized React state management.",
+      "Optimized data streaming channels with WebSockets and Server-Sent Events to aggregate orders across disparate liquidity venues."
     ],
-    techStack: ["React 19", "TypeScript", "Google GenAI SDK", "Tailwind CSS", "RxJS", "FastAPI", "WebSockets"]
+    techStack: ["React 19", "TypeScript", "FastAPI", "Python SciPy", "Tailwind CSS", "RxJS", "WebSockets"]
   },
   {
     company: "HedgeWave Capital",
@@ -71,11 +59,11 @@ export const EXPERIENCES: Experience[] = [
     period: "2022 - 2024",
     location: "Singapore",
     description: [
-      "Delivered a next-generation options trading layout used by 12 portfolio managers daily in executing option spread trades.",
-      "Designed clean, responsive web pages featuring bento-grid modules, custom theme patterns, and fluid Framer Motion transitions.",
-      "Integrated secure authentication, order routing, and audit vaults connected with enterprise databases."
+      "Delivered a next-generation options trading dashboard used by 12 portfolio managers daily to execute and monitor delta-hedging spread trades.",
+      "Designed clean, responsive web layouts featuring fluid neo-brutalist custom modules, robust charts, and rapid state feedback.",
+      "Integrated secure authentication, multi-tenant order routing, and secure audit vaults connected with PostgreSQL enterprise databases."
     ],
-    techStack: ["React", "Bento Grid", "D3.js", "Express", "Node.js", "PostgreSQL", "Docker"]
+    techStack: ["React", "Bento Grid Layouts", "D3.js Charts", "Express", "Node.js", "PostgreSQL", "Docker"]
   },
   {
     company: "Symmetric Technology",
@@ -83,9 +71,9 @@ export const EXPERIENCES: Experience[] = [
     period: "2020 - 2022",
     location: "Remote",
     description: [
-      "Optimized client-side responsive loading speeds by 40% using code-splitting, tree-shaking, and lazy image generation principles.",
-      "Wrote and maintained standard options pricing calculators and financial chart tools used in customer portal interfaces.",
-      "Collaborated with UI/UX designers to implement Swiss minimal design styles supporting dual modes."
+      "Optimized client-side responsive loading speeds by 40% using code-splitting, tree-shaking, and lazy content rendering principles.",
+      "Wrote and maintained standard options pricing calculators and financial chart tools used in B2B customer portal interfaces.",
+      "Collaborated with UI/UX designers to implement modern Swiss layout patterns supporting dual theme modes."
     ],
     techStack: ["JavaScript", "HTML5/CSS3", "Tailwind CSS", "SASS", "Vite", "Jest"]
   }
@@ -98,8 +86,8 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     skills: [
       { name: "Options Valuation & Greeks", score: 98 },
       { name: "Black-Scholes-Merton Modeling", score: 95 },
-      { name: "Volatility Surface fitting", score: 90 },
-      { name: "Delta-Hedging strategies", score: 88 },
+      { name: "Volatility Surface Fitting", score: 90 },
+      { name: "Delta-Hedging Strategies", score: 88 },
       { name: "Risk Management Matrix", score: 92 }
     ]
   },
@@ -115,14 +103,14 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     ]
   },
   {
-    title: "Agentic Engineering & API Integrations",
+    title: "Backend & Systems Integration",
     iconName: "Cpu",
     skills: [
-      { name: "Google Gemini AI Integration", score: 94 },
-      { name: "Multi-Agent Orchestration", score: 90 },
+      { name: "High-Performance REST APIs", score: 93 },
       { name: "WebSocket Streaming & SSE", score: 92 },
-      { name: "Node.js & Express Backends", score: 86 },
-      { name: "FastAPI / Python scientific stack", score: 85 }
+      { name: "Node.js & Express Frameworks", score: 88 },
+      { name: "FastAPI / Python Scientific Stack", score: 85 },
+      { name: "Redis Caching & Concurrency", score: 82 }
     ]
   }
 ];
