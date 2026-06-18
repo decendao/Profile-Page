@@ -151,7 +151,7 @@ export default function Hero({ lang }: HeroProps) {
                 className="space-y-4"
               >
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter text-brand-border leading-[0.95] uppercase italic">
-                  {lang === 'en' ? 'PORTFOLIO MANAGER x INVESTMENT AGENT FDE.' : '投资经理X投资Agent FDE'}
+                  {lang === 'en' ? 'PORTFOLIO MANAGER x INVESTMENT AGENT FDE.' : '投资经理 X 投资智能体 FDE'}
                 </h1>
                 
                 {/* Biography paragraphs with clean text-justify and balanced sizes */}

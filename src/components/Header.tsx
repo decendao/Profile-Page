@@ -10,10 +10,37 @@ interface HeaderProps {
 
 export default function Header({ lang, onLangChange }: HeaderProps) {
   const [copied, setCopied] = useState(false);
-  const [btcPrice, setBtcPrice] = useState(68452.40);
-  const [ethPrice, setEthPrice] = useState(3512.90);
-  const [greeksState, setGreeksState] = useState({ delta: 0.52, gamma: 0.012 });
+  const [prices, setPrices] = useState({
+    spy: 543.15,
+    qqq: 479.80,
+    vix: 14.12
+  });
   const [currentTime, setCurrentTime] = useState('');
+
+  // Fetch real-time prices from SGT yfinance API proxy
+  useEffect(() => {
+    const fetchPrices = async () => {
+      try {
+        const res = await fetch('/api/prices');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && typeof data.spy === 'number') {
+            setPrices({
+              spy: data.spy,
+              qqq: data.qqq,
+              vix: data.vix
+            });
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch real-time market prices:', err);
+      }
+    };
+
+    fetchPrices();
+    const interval = setInterval(fetchPrices, 15000); // Polling every 15 seconds
+    return () => clearInterval(interval);
+  }, []);
 
   // Update timezone-based clock
   useEffect(() => {
@@ -34,19 +61,14 @@ export default function Header({ lang, onLangChange }: HeaderProps) {
     return () => clearInterval(interval);
   }, []);
 
-  // Soft random tick animations for market tickers
+  // Soft micro-fluctuations on the client side to keep tickers dynamic
   useEffect(() => {
     const interval = setInterval(() => {
-      setBtcPrice(prev => prev + (Math.random() - 0.49) * 12.0);
-      setEthPrice(prev => prev + (Math.random() - 0.49) * 3.0);
-      setGreeksState(prev => {
-        const nextDelta = prev.delta + (Math.random() - 0.5) * 0.004;
-        const nextGamma = prev.gamma + (Math.random() - 0.5) * 0.0001;
-        return {
-          delta: Math.min(Math.max(nextDelta, 0.45), 0.58),
-          gamma: Math.min(Math.max(nextGamma, 0.010), 0.014)
-        };
-      });
+      setPrices(prev => ({
+        spy: prev.spy + (Math.random() - 0.49) * 0.15,
+        qqq: prev.qqq + (Math.random() - 0.49) * 0.12,
+        vix: Math.max(5.0, prev.vix + (Math.random() - 0.5) * 0.04)
+      }));
     }, 2800);
 
     return () => clearInterval(interval);
@@ -85,23 +107,19 @@ export default function Header({ lang, onLangChange }: HeaderProps) {
           </div>
         </div>
 
-        {/* Live Market Simulation Ribbon */}
+        {/* Live Market Simulation Ribbon - SPY QQQ VIX Real-time info */}
         <div className="hidden lg:flex items-center gap-6 text-[11px] font-mono border-x border-brand-border px-6 py-1 text-brand-border/80">
           <div className="flex items-center gap-1.5">
-            <span className="text-brand-border/50 font-bold uppercase">BTC/S:</span>
-            <span className="text-brand-border font-black">${btcPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+            <span className="text-brand-border/50 font-bold uppercase">SPY:</span>
+            <span className="text-brand-border font-black">${prices.spy.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="text-brand-border/50 font-bold uppercase">ETH/S:</span>
-            <span className="text-brand-border font-black">${ethPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <span className="text-brand-border/50 font-bold uppercase">RFR (r):</span>
-            <span className="text-brand-green font-black">4.50%</span>
+            <span className="text-brand-border/50 font-bold uppercase">QQQ:</span>
+            <span className="text-brand-border font-black">${prices.qqq.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="text-brand-border/50 font-bold uppercase">VIX (σ):</span>
-            <span className="text-brand-cyan font-black">14.85%</span>
+            <span className="text-brand-cyan font-black">{prices.vix.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%</span>
           </div>
         </div>
 
