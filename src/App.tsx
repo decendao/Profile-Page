@@ -4,11 +4,13 @@ import Hero from './components/Hero';
 import PricerWidget from './components/PricerWidget';
 import SelectedProjects from './components/SelectedProjects';
 import { motion, AnimatePresence } from 'motion/react';
-import { Terminal, Shield, Network, FileText, BarChart2, Undo, ArrowRight, Mail, Github } from 'lucide-react';
+import { Terminal, Shield, Network, FileText, BarChart2, Undo, ArrowRight, Mail, Github, Twitter, Linkedin, MessageSquare } from 'lucide-react';
 import { PERSONAL_INFO } from './data/resumeData';
+import EmailModal from './components/EmailModal';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<'bio' | 'pricer'>('bio');
+  const [isEmailOpen, setIsEmailOpen] = useState(false);
   const [lang, setLang] = useState<'en' | 'zh'>(() => {
     const saved = localStorage.getItem('marco_portfolio_lang');
     return (saved === 'zh' || saved === 'en') ? saved : 'zh';
@@ -134,24 +136,61 @@ export default function App() {
                     <p className="text-xs text-brand-border/80 font-medium font-sans leading-relaxed">
                       {lang === 'en'
                         ? 'Interested in quantum options algorithms, AI agents, or buy-side solutions? Let’s trade ideas or explore collaborations.'
-                        : '对期权算法、金融智能体或买方解决方案感兴趣？欢迎直连邮箱或关注 GitHub，共同探讨深度合作空间。'}
+                        : '对期权算法、金融智能体或买方解决方案感兴趣？欢迎通过内置模块、点击直达邮箱、关注 X 或 LinkedIn 与我建立联系。'}
                     </p>
-                    <div className="flex flex-wrap gap-4 pt-1">
-                      <a
-                        href={`mailto:${PERSONAL_INFO.email}`}
-                        className="inline-flex items-center gap-2 text-xs font-mono font-black text-brand-border hover:text-brand-green transition-all"
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                      {/* Built-in quick email action */}
+                      <button
+                        onClick={() => setIsEmailOpen(true)}
+                        className="w-full py-3 px-4 border-2 border-brand-border bg-white text-brand-border font-mono font-black text-xs tracking-wider uppercase hover:bg-[#0A0A0A] hover:text-white transition-all shadow-[3px_3px_0px_#10B981] flex items-center justify-center gap-2 cursor-pointer"
                       >
-                        <Mail className="w-4 h-4 text-brand-green" />
-                        <span>{PERSONAL_INFO.email}</span>
-                      </a>
+                        <MessageSquare className="w-4 h-4 text-brand-green" />
+                        <span>{lang === 'en' ? 'Inbound Msg Form' : '内置极速私信通道'}</span>
+                      </button>
+
+                      {/* Direct mail / github */}
+                      <div className="flex flex-col gap-2.5 justify-center pl-0 sm:pl-2">
+                        <a
+                          href={`mailto:${PERSONAL_INFO.email}`}
+                          className="inline-flex items-center gap-2 text-xs font-mono font-black text-brand-border hover:text-brand-cyan transition-all"
+                        >
+                          <Mail className="w-4 h-4 text-brand-cyan" />
+                          <span>{PERSONAL_INFO.email}</span>
+                        </a>
+                        <a
+                          href={PERSONAL_INFO.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-xs font-mono font-black text-brand-border hover:text-brand-cyan transition-all"
+                        >
+                          <Github className="w-4 h-4 text-brand-cyan" />
+                          <span>github.com/{PERSONAL_INFO.githubUsername}</span>
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* Social Handles Row */}
+                    <div className="pt-3.5 border-t border-brand-border/10 flex flex-wrap gap-4 items-center justify-start">
+                      <span className="text-[9px] font-mono font-black text-brand-border/40 uppercase tracking-widest leading-none">
+                        {lang === 'en' ? 'Professional networks:' : '专业社群与网络:'}
+                      </span>
                       <a
-                        href={PERSONAL_INFO.github}
+                        href={PERSONAL_INFO.twitter}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-xs font-mono font-black text-brand-border hover:text-brand-cyan transition-all"
+                        className="inline-flex items-center gap-1 text-xs font-mono font-black text-brand-border hover:text-[#1DA1F2] transition-colors"
                       >
-                        <Github className="w-4 h-4 text-brand-cyan" />
-                        <span>github.com/{PERSONAL_INFO.githubUsername}</span>
+                        <Twitter className="w-4 h-4 text-[#1DA1F2]" />
+                        <span>X / Twitter</span>
+                      </a>
+                      <a
+                        href={PERSONAL_INFO.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs font-mono font-black text-brand-border hover:text-[#0077B5] transition-colors"
+                      >
+                        <Linkedin className="w-4 h-4 text-[#0077B5]" />
+                        <span>LinkedIn</span>
                       </a>
                     </div>
                   </div>
@@ -211,6 +250,9 @@ export default function App() {
           </p>
         </div>
       </footer>
+
+      {/* Built-in dynamic secure packet modal */}
+      <EmailModal isOpen={isEmailOpen} onClose={() => setIsEmailOpen(false)} lang={lang} />
 
     </div>
   );

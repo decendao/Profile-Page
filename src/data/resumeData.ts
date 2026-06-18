@@ -14,6 +14,8 @@ export const PERSONAL_INFO = {
   email: "decenfund@gmail.com",
   github: "https://github.com/decendao",
   githubUsername: "decendao",
+  twitter: "https://x.com/marcostrategy",
+  linkedin: "https://www.linkedin.com/in/web3marco",
   tagline: {
     en: "Quantamental Investor & AI-Native Agent Architect with 13 years of buy-side trading expertise and end-to-end financial Agent delivery.",
     zh: "13年二级市场买方实盘功底，具备端到端金融 Agent 生产级架构交付力的 Builder。"
