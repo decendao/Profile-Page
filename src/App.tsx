@@ -91,21 +91,6 @@ export default function App() {
               </button>
             </div>
 
-            {/* Helper Message */}
-            <div className="hidden sm:flex items-center gap-2 text-[10px] font-mono font-bold text-brand-border/60 uppercase">
-              {activeTab === 'bio' ? (
-                <>
-                  <span>{lang === 'en' ? 'Currently viewing Lead Bio' : '正在浏览主买方投研履历'}</span>
-                  <ArrowRight className="w-3 h-3 text-brand-cyan" />
-                </>
-              ) : (
-                <>
-                  <span>{lang === 'en' ? 'Dedicated Black-Scholes Terminal' : '进入专属独立 Black-Scholes 计算控制台'}</span>
-                  <ArrowRight className="w-3 h-3 text-brand-green" />
-                </>
-              )}
-            </div>
-
           </div>
         </div>
 
@@ -127,17 +112,12 @@ export default function App() {
                 <SelectedProjects lang={lang} />
 
                 {/* Minimalist Connect Section */}
-                <section className="py-12 bg-brand-dark px-4 border-b border-brand-border">
-                  <div className="max-w-xl mx-auto border-2 border-brand-border bg-white p-6 rounded-none shadow-[4px_4px_0px_#0A0A0A] space-y-4">
+                <section className="py-8 bg-brand-dark px-4 border-b border-brand-border">
+                  <div className="max-w-xl mx-auto border-2 border-brand-border bg-white p-5 rounded-none shadow-[3px_3px_0px_#0A0A0A] space-y-3">
                     <h3 className="font-mono text-xs font-black text-brand-border uppercase tracking-widest flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-brand-cyan" />
-                      {lang === 'en' ? 'CONNECT WITH ME' : '与我联系 (Connect with me)'}
+                      {lang === 'en' ? 'CONNECT WITH ME' : '与我联系'}
                     </h3>
-                    <p className="text-xs text-brand-border/80 font-medium font-sans leading-relaxed">
-                      {lang === 'en'
-                        ? 'Interested in quantum options algorithms, AI agents, or buy-side solutions? Let’s trade ideas or explore collaborations.'
-                        : '对期权算法、金融智能体或买方解决方案感兴趣？欢迎通过内置模块、点击直达邮箱、关注 X 或 LinkedIn 与我建立联系。'}
-                    </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                       {/* Built-in quick email action */}
                       <button
@@ -227,22 +207,9 @@ export default function App() {
 
       {/* Premium Minimalist Footer */}
       <footer className="border-t-2 border-brand-border bg-brand-dark py-10 px-4 text-center">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <span className="font-mono text-xs text-brand-border font-black tracking-widest uppercase">MARCO PORTFOLIO</span>
-            <span className="text-[9px] text-brand-border/50 font-mono font-black uppercase">{lang === 'en' ? '| Quantitative Terminal' : '| 智能体对冲终端'}</span>
-          </div>
-
-          <div className="flex items-center gap-4 text-brand-border/60 font-mono text-[9px] font-black uppercase">
-            <span className="flex items-center gap-1.5">
-              <Shield className="w-3.5 h-3.5 text-brand-green" />
-              {lang === 'en' ? 'SECURE INTEGRITY' : '安全合规验证'}
-            </span>
-            <span>&bull;</span>
-            <span className="flex items-center gap-1.5">
-              <Network className="w-3.5 h-3.5 text-brand-cyan" />
-              {lang === 'en' ? 'SYSTEMS ACTIVE' : '金融公海系统已部署'}
-            </span>
           </div>
 
           <p className="text-[9px] text-brand-border/50 font-mono font-black uppercase">
