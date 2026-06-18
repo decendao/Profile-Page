@@ -32,6 +32,7 @@ export interface Project {
   tags: string[];
   githubUrl?: string;
   demoUrl?: string;
+  playbookUrl?: string;
 }
 
 export interface SkillCategory {

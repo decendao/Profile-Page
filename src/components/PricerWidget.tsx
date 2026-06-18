@@ -102,7 +102,7 @@ export default function PricerWidget({ lang }: PricerWidgetProps) {
                   EV ALIGNMENT
                 </span>
                 <h4 className="font-black text-sm text-brand-border uppercase tracking-tight">
-                  {lang === 'en' ? 'Quantamental View & Cross-Market Expected Value Arbitrage (07:00 - 11:00)' : '⏱️ 第三阶段：定义现代量化观 —— 另类跨市场“期望值套利”（07:00 - 11:00）'}
+                  {lang === 'en' ? 'Quantamental View & Cross-Market Expected Value Arbitrage (07:00 - 11:00)' : '定义现代量化观 —— 另类跨市场“期望值套利”（07:00 - 11:00）'}
                 </h4>
               </div>
 

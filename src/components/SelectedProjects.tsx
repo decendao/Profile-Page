@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Github, ExternalLink, Cpu, Database, Network, TrendingUp, Plus, Minus } from 'lucide-react';
+import { Github, ExternalLink, Cpu, Database, Network, TrendingUp, Plus, Minus, BookOpen } from 'lucide-react';
 import { PROJECTS } from '../data/resumeData';
 
 interface SelectedProjectsProps {
@@ -96,12 +96,24 @@ export default function SelectedProjects({ lang }: SelectedProjectsProps) {
                     </div>
 
                     <div className="flex items-center gap-2 shrink-0">
+                      {project.playbookUrl && (
+                        <a
+                          href={project.playbookUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1 border border-brand-border bg-white text-brand-green hover:bg-brand-green hover:text-white transition-all shadow-[1.5px_1.5px_0px_rgba(0,0,0,0.1)] shrink-0 flex items-center justify-center"
+                          title="View Playbook Strategy"
+                        >
+                          <BookOpen className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+
                       {project.githubUrl && (
                         <a
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-1 border border-brand-border bg-white text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white transition-all shadow-[1.5px_1.5px_0px_rgba(0,0,0,0.1)] shrink-0"
+                          className="p-1 border border-brand-border bg-white text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white transition-all shadow-[1.5px_1.5px_0px_rgba(0,0,0,0.1)] shrink-0 flex items-center justify-center"
                           title="View Source Code"
                         >
                           <Github className="w-3.5 h-3.5" />
@@ -111,7 +123,7 @@ export default function SelectedProjects({ lang }: SelectedProjectsProps) {
                       {/* Collapse toggle icon */}
                       <button
                         onClick={() => toggleProject(idx)}
-                        className="p-1 border border-brand-border bg-[#FBFBFA] hover:bg-neutral-100 transition-all shadow-[1.5px_1.5px_0px_rgba(0,0,0,0.15)] cursor-pointer"
+                        className="p-1 border border-brand-border bg-[#FBFBFA] hover:bg-neutral-100 transition-all shadow-[1.5px_1.5px_0px_rgba(0,0,0,0.15)] cursor-pointer flex items-center justify-center"
                       >
                         {isOpen ? (
                           <Minus className="w-3.5 h-3.5 text-brand-magenta" />
@@ -141,6 +153,21 @@ export default function SelectedProjects({ lang }: SelectedProjectsProps) {
                       <p className="text-xs text-[#0a0a0a]/80 font-medium font-sans leading-relaxed text-justify">
                         {project.description[lang]}
                       </p>
+
+                      {/* Explicit Playbook Button wrapper if URL is present */}
+                      {project.playbookUrl && (
+                        <div className="pt-1">
+                          <a
+                            href={project.playbookUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-3 py-1.5 border-2 border-[#0A0A0A] bg-[#0A0A0A] hover:bg-neutral-800 text-white font-mono text-[10px] font-black uppercase tracking-wider shadow-[3px_3px_0px_#22c55e] transition-all cursor-pointer"
+                          >
+                            <BookOpen className="w-3.5 h-3.5 text-brand-green" />
+                            <span>{lang === 'en' ? 'LAUNCH PLAYBOOK BRIEF' : '启动 PLAYBOOK 决策手册'}</span>
+                          </a>
+                        </div>
+                      )}
 
                       {/* Micro-Metrics Grid (Side-by-Side Cells) */}
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">

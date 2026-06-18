@@ -5,7 +5,7 @@ export const PERSONAL_INFO = {
   fullName: "Marco Lingpeng",
   title: {
     en: "Forward Deployed Engineer (Financial AI Agents) & Quantamental Investor",
-    zh: "金融投资Agent FDE前置工程师 (量化与智能体方向)"
+    zh: "金融投资Agent FDE前置工程师"
   },
   location: {
     en: "Singapore / Remote",
@@ -87,8 +87,8 @@ export const THE_PITCH = {
 export const PROJECTS: Project[] = [
   {
     title: {
-      en: "Derivatives Volatility Surface Mapper",
-      zh: "衍生品波动率曲面映射器"
+      en: "Gamme Squeeze Tracker",
+      zh: "Gamme Squeeze Tracker"
     },
     subtitle: {
       en: "High-Frequency Volatility Curve Analysis",
@@ -105,7 +105,8 @@ export const PROJECTS: Project[] = [
       { label: { en: "Fit Rate", zh: "曲面拟合率" }, value: "98.7%" }
     ],
     tags: ["React", "TypeScript", "D3.js", "Canvas2D", "FastAPI", "Python SciPy"],
-    githubUrl: "https://github.com/decendao"
+    githubUrl: "https://github.com/decendao",
+    playbookUrl: "https://alva.ai/u/decenfund/playbooks/options-risk-breaker"
   },
   {
     title: {
