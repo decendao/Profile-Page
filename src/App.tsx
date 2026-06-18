@@ -3,14 +3,22 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import PricerWidget from './components/PricerWidget';
 import SelectedProjects from './components/SelectedProjects';
-import HistoryTimeline from './components/HistoryTimeline';
-import ContactForm from './components/ContactForm';
 import { motion, AnimatePresence } from 'motion/react';
-import { Terminal, Shield, Network, FileText, BarChart2, Undo, ArrowRight } from 'lucide-react';
+import { Terminal, Shield, Network, FileText, BarChart2, Undo, ArrowRight, Mail, Github } from 'lucide-react';
 import { PERSONAL_INFO } from './data/resumeData';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<'bio' | 'pricer'>('bio');
+  const [lang, setLang] = useState<'en' | 'zh'>(() => {
+    const saved = localStorage.getItem('marco_portfolio_lang');
+    return (saved === 'zh' || saved === 'en') ? saved : 'zh';
+  });
+
+  // Persist language settings
+  const handleLangChange = (newLang: 'en' | 'zh') => {
+    setLang(newLang);
+    localStorage.setItem('marco_portfolio_lang', newLang);
+  };
 
   // Monitor hash changes so we can set active view if someone clicks dynamic links like href="#calculator"
   useEffect(() => {
@@ -45,7 +53,7 @@ export default function App() {
     <div className="min-h-screen bg-brand-dark text-brand-border font-sans flex flex-col selection:bg-brand-green/30 selection:text-[#0A0A0A]">
       
       {/* Sticky Modular Header */}
-      <Header />
+      <Header lang={lang} onLangChange={handleLangChange} />
 
       {/* Main Container Layout */}
       <main className="flex-1">
@@ -65,7 +73,7 @@ export default function App() {
                 }`}
               >
                 <FileText className="w-3.5 h-3.5 text-brand-cyan" />
-                <span>/01_BIO_PORTFOLIO</span>
+                <span>{lang === 'en' ? '/01_BIO_PORTFOLIO' : '/01_履历暨能力宣告'}</span>
               </button>
 
               <button 
@@ -77,7 +85,7 @@ export default function App() {
                 }`}
               >
                 <BarChart2 className="w-3.5 h-3.5 text-brand-green" />
-                <span>/02_OPTIONS_VALUATION</span>
+                <span>{lang === 'en' ? '/02_OPTIONS_VALUATION' : '/02_期权希腊字母终端'}</span>
               </button>
             </div>
 
@@ -85,12 +93,12 @@ export default function App() {
             <div className="hidden sm:flex items-center gap-2 text-[10px] font-mono font-bold text-brand-border/60 uppercase">
               {activeTab === 'bio' ? (
                 <>
-                  <span>Currently viewing Lead Bio</span>
+                  <span>{lang === 'en' ? 'Currently viewing Lead Bio' : '正在浏览主买方投研履历'}</span>
                   <ArrowRight className="w-3 h-3 text-brand-cyan" />
                 </>
               ) : (
                 <>
-                  <span>Dedicated Black-Scholes Terminal</span>
+                  <span>{lang === 'en' ? 'Dedicated Black-Scholes Terminal' : '进入专属独立 Black-Scholes 计算控制台'}</span>
                   <ArrowRight className="w-3 h-3 text-brand-green" />
                 </>
               )}
@@ -111,16 +119,43 @@ export default function App() {
                 transition={{ duration: 0.35, ease: 'easeOut' }}
               >
                 {/* Hero Showcase Intro Section (with Quant Core removed) */}
-                <Hero />
+                <Hero lang={lang} />
 
                 {/* Selected Fintech Projects */}
-                <SelectedProjects />
+                <SelectedProjects lang={lang} />
 
-                {/* Work Career Timeline without skills maps */}
-                <HistoryTimeline />
-
-                {/* Secure contact form */}
-                <ContactForm />
+                {/* Minimalist Connect Section */}
+                <section className="py-12 bg-brand-dark px-4 border-b border-brand-border">
+                  <div className="max-w-xl mx-auto border-2 border-brand-border bg-white p-6 rounded-none shadow-[4px_4px_0px_#0A0A0A] space-y-4">
+                    <h3 className="font-mono text-xs font-black text-brand-border uppercase tracking-widest flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-brand-cyan" />
+                      {lang === 'en' ? 'CONNECT WITH ME' : '与我联系 (Connect with me)'}
+                    </h3>
+                    <p className="text-xs text-brand-border/80 font-medium font-sans leading-relaxed">
+                      {lang === 'en'
+                        ? 'Interested in quantum options algorithms, AI agents, or buy-side solutions? Let’s trade ideas or explore collaborations.'
+                        : '对期权算法、金融智能体或买方解决方案感兴趣？欢迎直连邮箱或关注 GitHub，共同探讨深度合作空间。'}
+                    </p>
+                    <div className="flex flex-wrap gap-4 pt-1">
+                      <a
+                        href={`mailto:${PERSONAL_INFO.email}`}
+                        className="inline-flex items-center gap-2 text-xs font-mono font-black text-brand-border hover:text-brand-green transition-all"
+                      >
+                        <Mail className="w-4 h-4 text-brand-green" />
+                        <span>{PERSONAL_INFO.email}</span>
+                      </a>
+                      <a
+                        href={PERSONAL_INFO.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-xs font-mono font-black text-brand-border hover:text-brand-cyan transition-all"
+                      >
+                        <Github className="w-4 h-4 text-brand-cyan" />
+                        <span>github.com/{PERSONAL_INFO.githubUsername}</span>
+                      </a>
+                    </div>
+                  </div>
+                </section>
               </motion.div>
             ) : (
               <motion.div
@@ -138,7 +173,7 @@ export default function App() {
                     className="inline-flex items-center gap-2 px-3 py-1.5 border border-brand-border bg-white text-[10px] font-mono font-black uppercase text-brand-border/80 hover:bg-[#FAF9F6] transition-all shadow-[2px_2px_0px_#0A0A0A]"
                   >
                     <Undo className="w-3.5 h-3.5 text-brand-cyan" />
-                    <span>← Return to professional resume bio</span>
+                    <span>{lang === 'en' ? '← Return to professional resume bio' : '← 返回 Marco 买方履历与宣告'}</span>
                   </button>
                 </div>
 
@@ -156,18 +191,18 @@ export default function App() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <span className="font-mono text-xs text-brand-border font-black tracking-widest uppercase">MARCO PORTFOLIO</span>
-            <span className="text-[9px] text-brand-border/50 font-mono font-black uppercase">| Quantitative Terminal</span>
+            <span className="text-[9px] text-brand-border/50 font-mono font-black uppercase">{lang === 'en' ? '| Quantitative Terminal' : '| 智能体对冲终端'}</span>
           </div>
 
           <div className="flex items-center gap-4 text-brand-border/60 font-mono text-[9px] font-black uppercase">
             <span className="flex items-center gap-1.5">
               <Shield className="w-3.5 h-3.5 text-brand-green" />
-              SECURE INTEGRITY
+              {lang === 'en' ? 'SECURE INTEGRITY' : '安全合规验证'}
             </span>
             <span>&bull;</span>
             <span className="flex items-center gap-1.5">
               <Network className="w-3.5 h-3.5 text-brand-cyan" />
-              SYSTEMS ACTIVE
+              {lang === 'en' ? 'SYSTEMS ACTIVE' : '金融公海系统已部署'}
             </span>
           </div>
 

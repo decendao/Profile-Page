@@ -3,7 +3,12 @@ import { motion } from 'motion/react';
 import { Mail, Github, ExternalLink, Calendar, MapPin, Copy, Check } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/resumeData';
 
-export default function Header() {
+interface HeaderProps {
+  lang: 'en' | 'zh';
+  onLangChange: (lang: 'en' | 'zh') => void;
+}
+
+export default function Header({ lang, onLangChange }: HeaderProps) {
   const [copied, setCopied] = useState(false);
   const [btcPrice, setBtcPrice] = useState(68452.40);
   const [ethPrice, setEthPrice] = useState(3512.90);
@@ -75,7 +80,7 @@ export default function Header() {
               </span>
             </div>
             <p className="text-[11px] text-brand-border/70 font-semibold uppercase tracking-wider">
-              {PERSONAL_INFO.title}
+              {PERSONAL_INFO.title[lang]}
             </p>
           </div>
         </div>
@@ -107,6 +112,26 @@ export default function Header() {
             <Calendar className="w-3.5 h-3.5 text-brand-cyan" />
             <span className="text-brand-border/60 font-bold">SGT:</span>
             <span className="text-brand-border font-black">{currentTime || '08:00:00'}</span>
+          </div>
+
+          {/* Bilingual Adaptive Switch */}
+          <div className="flex border-2 border-brand-border bg-white rounded-none p-0.5 shadow-[2px_2px_0px_#0a0a0a]">
+            <button
+              onClick={() => onLangChange('zh')}
+              className={`px-2 py-0.5 font-mono text-[10px] font-black tracking-widest uppercase transition-all ${
+                lang === 'zh' ? 'bg-[#0A0A0A] text-white' : 'hover:bg-neutral-100 text-brand-border'
+              }`}
+            >
+              中
+            </button>
+            <button
+              onClick={() => onLangChange('en')}
+              className={`px-2 py-0.5 font-mono text-[10px] font-black tracking-widest uppercase transition-all ${
+                lang === 'en' ? 'bg-[#0A0A0A] text-white' : 'hover:bg-neutral-100 text-brand-border'
+              }`}
+            >
+              EN
+            </button>
           </div>
 
           <div className="flex items-center gap-2">

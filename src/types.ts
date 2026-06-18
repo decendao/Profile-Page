@@ -17,18 +17,18 @@ export interface GreeksResult {
 
 export interface Experience {
   company: string;
-  role: string;
+  role: { en: string; zh: string };
   period: string;
-  location: string;
-  description: string[];
+  location: { en: string; zh: string };
+  description: { en: string[]; zh: string[] };
   techStack: string[];
 }
 
 export interface Project {
-  title: string;
-  subtitle: string;
-  description: string;
-  metrics: { label: string; value: string }[];
+  title: { en: string; zh: string };
+  subtitle: { en: string; zh: string };
+  description: { en: string; zh: string };
+  metrics: { label: { en: string; zh: string }; value: string }[];
   tags: string[];
   githubUrl?: string;
   demoUrl?: string;

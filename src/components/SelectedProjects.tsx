@@ -2,7 +2,11 @@ import { motion } from 'motion/react';
 import { Github, ExternalLink, Cpu, Database, Network, TrendingUp } from 'lucide-react';
 import { PROJECTS } from '../data/resumeData';
 
-export default function SelectedProjects() {
+interface SelectedProjectsProps {
+  lang: 'en' | 'zh';
+}
+
+export default function SelectedProjects({ lang }: SelectedProjectsProps) {
   // Map icons for display variety based on project titles/tags
   const getProjectIcon = (index: number) => {
     switch (index) {
@@ -23,13 +27,15 @@ export default function SelectedProjects() {
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-14">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 border border-brand-border bg-white font-mono text-[10px] font-black text-brand-border uppercase tracking-widest shadow-[2px_2px_0px_#0a0a0a]">
             <Cpu className="w-3.5 h-3.5 text-brand-green" />
-            <span>FINTECH PORTFOLIO & WORK</span>
+            <span>{lang === 'en' ? 'FINTECH PORTFOLIO & WORK' : '衍生品与工具网关 (Portfolio)'}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-black tracking-tighter text-brand-border uppercase italic leading-none">
-            Selected Engineering Projects
+            {lang === 'en' ? 'Selected Engineering Projects' : '特色金融量化项目'}
           </h2>
           <p className="text-brand-border/80 text-sm font-medium leading-relaxed">
-            A showcase of production-ready systems, risk visualization engines, and low-latency API integrations built to bridge complex financial mathematical models with responsive, high-performance interfaces.
+            {lang === 'en' 
+              ? 'A showcase of production-ready systems, risk visualization engines, and low-latency API integrations built to bridge complex financial mathematical models with responsive, high-performance interfaces.'
+              : '以下是历年来部分特色衍生品监控与接口路由工程，结合了高精度 Black-Scholes 数学模型与低时延 WebSocket 传输。'}
           </p>
         </div>
 
@@ -56,10 +62,10 @@ export default function SelectedProjects() {
                     </div>
                     <div>
                       <h3 className="font-mono text-base font-black text-brand-border uppercase tracking-tight">
-                        {project.title}
+                        {project.title[lang]}
                       </h3>
                       <p className="text-[10px] text-brand-border/60 font-mono font-bold uppercase tracking-wider">
-                        {project.subtitle}
+                        {project.subtitle[lang]}
                       </p>
                     </div>
                   </div>
@@ -79,7 +85,7 @@ export default function SelectedProjects() {
 
                 {/* Description */}
                 <p className="text-xs text-brand-border/80 font-medium leading-relaxed mb-6">
-                  {project.description}
+                  {project.description[lang]}
                 </p>
 
                 {/* Key Metrics Bento Cells */}
@@ -90,7 +96,7 @@ export default function SelectedProjects() {
                       className="p-3 border border-brand-border/20 bg-[#FAF9F5] text-center"
                     >
                       <p className="text-[9px] font-mono font-black text-brand-border/40 uppercase tracking-widest leading-none mb-1">
-                        {metric.label}
+                        {metric.label[lang]}
                       </p>
                       <p className="text-sm font-mono font-black text-brand-border">
                         {metric.value}
