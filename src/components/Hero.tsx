@@ -64,7 +64,7 @@ export default function Hero({ lang }: HeroProps) {
             className="space-y-4"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter text-brand-border leading-[0.95] uppercase italic">
-              {lang === 'en' ? 'QUANTAMENTAL SYSTEMS.' : '量化与智能体架构.'}
+              {lang === 'en' ? 'PORTFOLIO MANAGER x INVESTMENT AGENT FDE.' : '投资经理X投资Agent FDE'}
             </h1>
             
             {/* Split Paragraph Bio rendering */}
