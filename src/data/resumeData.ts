@@ -4,8 +4,8 @@ export const PERSONAL_INFO = {
   name: "Marco",
   fullName: "Marco Lingpeng",
   title: {
-    en: "Quantamental Investor & AI-Native Agent Architect",
-    zh: "期权化买方投资人 & 金融 AI 架构师"
+    en: "Forward Deployed Engineer (Financial AI Agents) & Quantamental Investor",
+    zh: "金融投资Agent FDE前置工程师 (量化与智能体方向)"
   },
   location: {
     en: "Singapore / Remote",
@@ -17,16 +17,16 @@ export const PERSONAL_INFO = {
   twitter: "https://x.com/marcostrategy",
   linkedin: "https://www.linkedin.com/in/web3marco",
   tagline: {
-    en: "Quantamental Investor & AI-Native Agent Architect with 13 years of buy-side trading expertise and end-to-end financial Agent delivery.",
-    zh: "13年二级市场买方实盘功底，具备端到端金融 Agent 生产级架构交付力的 Builder。"
+    en: "12 years of quantitative derivative portfolio management with live execution across major retail APIs. Specializing in autonomous financial workflows and production-grade Agent harnesses.",
+    zh: "12年美股二级市场及衍生品实盘沉淀，专注将买方博弈策略与量化模型深度整合为生产级金融 AI 智能体。"
   },
   aboutMeTitle: {
-    en: "About Me / Profile Summary",
-    zh: "关于我 / 个人简介"
+    en: "About Me / Quantamental FDE Profile",
+    zh: "关于我 / FDE 个人简介"
   },
   about: {
-    en: "I am Marco Lingpeng, a Quantamental Investor and AI-Native Agent Architect with 13 years of buy-side trading expertise and end-to-end financial Agent delivery capabilities.\n\nSince entering live US equity markets in 2012, I have experienced every milestone in brokerage and trading terminal technology firsthand at a pixel level. My major investment breakthrough occurred while managing a $30M proprietary portfolio for a family office. I completely abandoned the traditional, static accounting-ledger-style sell-side approach. Instead, I transitioned fully to a buy-side framework driven by macro liquidity, high-frequency alternative event signals, and dynamic Alpha arbitrage and tail-risk hedging utilizing options structures.\n\nDuring the extreme panic and consecutive circuit breakers of the March 2020 liquidity black swan, my precise intraday monitoring of option chain Greek anomalies enabled me to deploy dynamic Gamma hedging via deep Out-of-the-Money (OTM) Puts, locking our portfolio's maximum drawdown securely within safe limits.\n\nAs the AGI revolution drives the technology and financial landscapes into what Andrej Karpathy defines as 'Software 3.0', I see clearly that human cognitive bandwidth faces a physical limit (the 'Single-Prompt Ceiling'). Static legacy strategies are rapidly decaying. The future of finance belongs to those who merge deep buy-side game-theoretic expertise with production-grade AI infrastructure—the Option & Quantitative Prompt Architects.",
-    zh: "我是凌鹏，一个拥有 13 年二级市场买方功底、且具备端到端金融 Agent 交付力的 Builder。\n\n从 2012 年切入美股实盘交易至今，我肉身像素级经历了全球二级市场底层券商与交易终端的全部技术迭代。我的投资跃迁发生在家办自营盘管理 3000 万美元 资金期间：我彻底放弃了死抠静态财务报表的古典卖方清朝账本模式，全面转向以宏观流动性、高频另类事件驱动，以及利用期权（Options）结构进行动态阿尔法（Alpha）套利与尾部风控的买方体系。\n\n在 2020 年 3 月美股极端恐慌连续熔断的流动性黑天鹅中，我凭借盘中对期权链 Greeks 异常偏离的精准监控，通过远期深度虚值看跌期权（OTM Puts）进行 Gamma 动态对冲，将资产组合的整体回撤死死锁在绝对的安全线内。\n\n当 AGI 爆发将整个科技与金融生态推入 Andrej Karpathy 所定义的 'Software 3.0' 时代，我清晰地意识到：人脑的信息吞吐量存在物理天花板（Single-Prompt Ceiling）。传统的静态策略正在失效，未来的金融终局，属于能够将买方博弈内功融入生产级 AI 基建的 Prompt Architect（期权/量化智能体架构师）。"
+    en: "With 12 years of live US equity experience, I previously managed a $10M portfolio for a single-family office in New York, and generated 50%+ excess returns for fiduciary clients at MicroStrategy Capital Management from 2023 to 2025. Since opening my first US equity account as a freshman in 2012, I have put real capital on the line across every major retail and institutional brokerage evolution in the US—TD Ameritrade, Robinhood, Interactive Brokers (IBKR), and Alpaca API. Every milestone is etched into my muscle memory of market micro-structures.\n\nTo me, 'investing' is never about dogmatically dissecting static accounting metrics. It is about capturing global macroeconomic inflection points, exploiting geopolitical information anomalies, and harvesting non-linear derivative alpha. During the unprecedented market circuit breakers of March 2020, it was my dynamic Gamma hedging on out-of-the-money (OTM) Put option arrays that safely locked down our family office portfolio's maximum drawdown.\n\nThe moment GPT-3.5 broke out in late 2022, I knew the paradigm had permanently shifted. The traditional sell-side model—spending a week compiling a fifty-page report to dissect a single company's past financials—has been devalued to near-zero cost. High-entropy financial signal is no longer about text accumulation; it is about executable, reusable trading strategy software: Executable Playbooks.\n\nSince mid-2025, I have focused on fusing Autonomous AI Agents directly into my workflow. My core obsession of creating an automated options tracking and intelligence desk materialized as MarcoMoney. After 12 months of rapid learning, intensive testing, and iterations, I shipped our MVP in May. At marcomoney.app, I engineered a three-tier Agent loop—automated pre-market expected boundary brief, intraday IV Crush risk circuit breaker, and post-session strategy reconciliation—distilling 13 years of personal trading logic into a 24/7 cloud-redundant 'Quant Desk'.\n\nFor speculative and capital-managing Agents, my ultimate philosophy is clear: users hold zero loyalty to underlying foundation models (LLMs). They will swap models in a second for lower latency or higher intelligence. However, they hold a fanatical, near-religious retention for the Harness that secures their own investment memories, custom execution parameters, and tool routing protocols.\n\nAs a Forward Deployed Engineer (FDE) focusing on Financial AI Agents, my mission is to identify, extract, and distill highly reproducible investment strategies and quant models, converting them into modular, remixable financial infrastructures ready for global long-tail market adaptation.",
+    zh: "12年美股二级市场投资组合管理经验，曾在纽约单一家办管理1000万美元投资组合，2023-2025期间在微策略资本管理为受托客户创造50%+超额回报。从2012年大一首个美股账户开始，我用真金白银踩过全美所有主流券商和交易终端的迭代周期——TD Ameritrade、Robinhood、IBKR、Alpaca API，每一段都是对市场底层架构的肌肉记忆。\n\n我理解的“投资”不是静态财务指标的死抠，而是全球宏观流动性拐点的捕获、地缘政治事件的预期差、以及衍生品市场的非线性Alpha。2020年美股连续熔断期间，正是靠深度虚值看跌期权组合的Gamma动态对冲，将家办组合的回撤锁死在安全线内。\n\n2022年底GPT-3.5爆发的那一刻，我意识到范式将永久改变。传统卖方模式——“花一周写几万字死磕一家公司的财务报告”——已经在AI时代贬值到接近零成本。真正有价值的内容不是文字堆砌，而是可执行、可复用的金融策略代码：Executable Playbooks。\n\n2025年中开始，我专注如何将AI Agents融入我的投研交易workflows。我的核心目标是打造一个美股盯盘智能体系统并命名为MarcoMoney。通过12个月的不断学习、测试和迭代，终于在5月份发布了MVP。在marcomoney.app里，我设计了三层Agent闭环——盘前预期波动范围自动简报、日内IV Crush风险断路器、收盘后复盘日志与策略迭代——用代码把自己13年的交易认知“蒸馏”成一个24/7云端冗余的“Quant Desk”。\n\n对于投资交易Agent，我的核心理解是：用户对底层大模型LLM没有忠诚度，谁便宜谁更聪明用户一秒钟就能切走；但用户对锁定了自己投资记忆、策略习惯和Tool路由协议的Harness，具备近乎偏执的粘性。\n\n作为金融投资Agent FDE（前置开发工程师），我的使命就是尽可能挖掘并蒸馏最可复制的投资经理投资框架和量化模型，变成让全球长尾用户可Remix、可二次魔改的金融基础设施。"
   }
 };
 

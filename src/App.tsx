@@ -87,7 +87,7 @@ export default function App() {
                 }`}
               >
                 <BarChart2 className="w-3.5 h-3.5 text-brand-green" />
-                <span>{lang === 'en' ? '/02_OPTIONS_VALUATION' : '/02_期权希腊字母终端'}</span>
+                <span>{lang === 'en' ? '/02_OPTIONS_PHILOSOPHY' : '/02_我对期权的理解'}</span>
               </button>
             </div>
 
@@ -197,7 +197,7 @@ export default function App() {
                 </div>
 
                 {/* Dedicated Black-Scholes Greeks Calculator Page */}
-                <PricerWidget />
+                <PricerWidget lang={lang} />
               </motion.div>
             )}
           </AnimatePresence>

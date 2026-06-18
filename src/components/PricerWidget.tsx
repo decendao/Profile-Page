@@ -1,419 +1,140 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { calculateGreeks, OPTION_STRATEGIES_TEMPLATES } from '../utils/pricing';
-import { OptionParams, GreeksResult } from '../types';
-import { Sliders, HelpCircle, ArrowRight, Sparkles, TrendingUp, RefreshCw, Layers } from 'lucide-react';
 
-export default function PricerWidget() {
-  // Option Parameters State
-  const [params, setParams] = useState<OptionParams>({
-    stockPrice: 100,
-    strikePrice: 100,
-    daysToExpiration: 30,
-    volatility: 35,
-    interestRate: 4.5,
-    optionType: 'call'
-  });
+interface PricerWidgetProps {
+  lang: 'en' | 'zh';
+}
 
-  // Greeks Calculation State
-  const [greeks, setGreeks] = useState<GreeksResult>({
-    price: 0,
-    delta: 0,
-    gamma: 0,
-    vega: 0,
-    theta: 0
-  });
-
-  // Explanatory note or selected strategy preset
-  const [selectedPreset, setSelectedPreset] = useState<string>('Custom');
-
-  // Trigger recalculation on parameter changes
-  useEffect(() => {
-    const updatedGreeks = calculateGreeks(params);
-    setParams(prev => {
-      // Check if value actually changed to prevent infinite loops (primitive comparison of fields)
-      return prev;
-    });
-    setGreeks(updatedGreeks);
-  }, [params]);
-
-  const handleSliderChange = (key: keyof OptionParams, value: number) => {
-    setSelectedPreset('Custom');
-    setParams(prev => ({
-      ...prev,
-      [key]: value
-    }));
-  };
-
-  const handleOptionTypeToggle = (type: 'call' | 'put') => {
-    setParams(prev => ({
-      ...prev,
-      optionType: type
-    }));
-  };
-
-  const applyStrategyPreset = (strategyName: string, setup: { optionType: string; offsetStrike: number; label: string }) => {
-    setSelectedPreset(strategyName);
-    
-    // Set parameters based on the strategy setup
-    const newStockPrice = 100;
-    const newStrike = Math.round(newStockPrice * (1 + setup.offsetStrike / 100));
-    
-    setParams({
-      stockPrice: newStockPrice,
-      strikePrice: newStrike,
-      daysToExpiration: 30, 
-      volatility: 35,
-      interestRate: 4.5,
-      optionType: setup.optionType as 'call' | 'put'
-    });
-  };
-
-  // Helper colors based on sign
-  const getDeltaColors = (delta: number) => {
-    if (delta > 0) return { bar: 'bg-brand-green', text: 'text-brand-green' };
-    if (delta < 0) return { bar: 'bg-red-400', text: 'text-red-400' };
-    return { bar: 'bg-gray-400', text: 'text-gray-400' };
-  };
-
+export default function PricerWidget({ lang }: PricerWidgetProps) {
   return (
-    <section id="calculator" className="py-16 px-4 bg-brand-dark border-b border-brand-border scrolling-mt-14">
+    <section id="calculator" className="py-12 px-4 bg-brand-dark border-b border-brand-border scrolling-mt-14 animate-fade-in">
       <div className="max-w-7xl mx-auto">
         
-        {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 border border-brand-border bg-white font-mono text-[10px] font-black text-brand-border uppercase tracking-widest shadow-[2px_2px_0px_#0a0a0a]">
-            <RefreshCw className="w-3.5 h-3.5 text-brand-cyan animate-spin duration-10000" />
-            <span>Quantitative Valuation</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-black tracking-tighter text-brand-border uppercase italic leading-none">
-            Black-Scholes Options & Greeks Tool
-          </h2>
-          <p className="text-brand-border/80 text-sm font-medium leading-relaxed">
-            Experience the underlying risk mechanics of option derivatives. Use the sliders or strategy templates below to see real-time updates of option premiums and sensitivity coefficients.
-          </p>
-        </div>
-
-        {/* Strategy Presets Bar */}
-        <div className="flex flex-wrap items-center gap-3 justify-center mb-10">
-          <span className="text-xs font-mono font-black text-brand-border/50 uppercase tracking-widest mr-2">Preset Templates:</span>
-          {OPTION_STRATEGIES_TEMPLATES.map((strat, idx) => (
-            <button
-              key={idx}
-              onClick={() => applyStrategyPreset(strat.name, strat.strategySetup)}
-              className={`px-3.5 py-1.5 border-2 text-[11px] font-mono font-black uppercase tracking-wider transition-all cursor-pointer ${
-                selectedPreset === strat.name
-                  ? 'border-brand-border bg-[#0A0A0A] text-white shadow-[2px_2px_0px_rgba(0,0,0,0.15)]'
-                  : 'border-brand-border/30 bg-white text-brand-border/80 hover:border-brand-border hover:bg-neutral-50'
-              }`}
-            >
-              {strat.name}
-            </button>
-          ))}
-          <button
-            onClick={() => {
-              setSelectedPreset('Custom');
-              setParams({
-                stockPrice: 100,
-                strikePrice: 100,
-                daysToExpiration: 30,
-                volatility: 35,
-                interestRate: 4.5,
-                optionType: 'call'
-              });
-            }}
-            className={`px-3.5 py-1.5 border-2 text-[11px] font-mono font-black uppercase tracking-wider transition-all cursor-pointer ${
-              selectedPreset === 'Custom'
-                ? 'border-brand-border bg-[#FAF9F6] text-brand-border shadow-[2px_2px_0px_#0A0A0A]'
-                : 'border-brand-border/30 bg-white text-brand-border/60 hover:text-brand-border'
-            }`}
-          >
-            Reset to ATM
-          </button>
-        </div>
-
-        {/* Core Control Panel Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
-          
-          {/* Left Block: Sliders (Size 5 on 12) */}
-          <div className="lg:col-span-5 border-2 border-brand-border bg-white p-6 rounded-none shadow-[6px_6px_0px_#0A0A0A] space-y-6 flex flex-col justify-between">
-            <div className="space-y-5">
-              <div className="flex items-center justify-between pb-2.5 border-b-2 border-brand-border/80">
-                <span className="text-xs font-mono font-black text-brand-border flex items-center gap-1.5">
-                  <Sliders className="w-4 h-4 text-brand-cyan" />
-                  VALUATION PARAMETERS
-                </span>
-                <span className="text-[9px] font-mono uppercase bg-[#FAF9F6] border border-brand-border px-2 py-0.5 font-bold text-brand-border">
-                  PRESET: {selectedPreset.toUpperCase()}
-                </span>
-              </div>
-
-              {/* Call / Put Toggle */}
-              <div className="space-y-2">
-                <label className="text-[10px] font-mono font-black text-brand-border/50 uppercase tracking-widest">Option Directionality</label>
-                <div className="grid grid-cols-2 gap-3">
-                  <button
-                    onClick={() => handleOptionTypeToggle('call')}
-                    className={`py-2.5 rounded-none font-mono text-xs font-black tracking-widest uppercase transition-all border-2 cursor-pointer ${
-                      params.optionType === 'call'
-                        ? 'bg-[#047857] text-white border-brand-border shadow-[2px_2px_0px_#0a0a0a]'
-                        : 'bg-white border-brand-border/30 text-brand-border/60 hover:border-brand-border'
-                    }`}
-                  >
-                    LONG CALL (Bullish)
-                  </button>
-                  <button
-                    onClick={() => handleOptionTypeToggle('put')}
-                    className={`py-2.5 rounded-none font-mono text-xs font-black tracking-widest uppercase transition-all border-2 cursor-pointer ${
-                      params.optionType === 'put'
-                        ? 'bg-red-600 text-white border-brand-border shadow-[2px_2px_0px_#0a0a0a]'
-                        : 'bg-white border-brand-border/30 text-brand-border/60 hover:border-brand-border'
-                    }`}
-                  >
-                    LONG PUT (Bearish)
-                  </button>
-                </div>
-              </div>
-
-              {/* Slider 1: Stock Price */}
-              <div className="space-y-2.5">
-                <div className="flex justify-between text-xs font-mono font-bold">
-                  <span className="text-brand-border/75">Stock Price (S)</span>
-                  <span className="text-brand-border font-black">${params.stockPrice.toFixed(1)}</span>
-                </div>
-                <input
-                  type="range"
-                  min="50"
-                  max="200"
-                  step="0.5"
-                  value={params.stockPrice}
-                  onChange={(e) => handleSliderChange('stockPrice', parseFloat(e.target.value))}
-                  className="w-full accent-[#0A0A0A] cursor-pointer bg-[#EAEAE9] rounded-none h-2"
-                />
-                <div className="flex justify-between text-[9px] text-brand-border/40 font-mono font-black">
-                  <span>$50.0</span>
-                  <span>$125.0</span>
-                  <span>$200.0</span>
-                </div>
-              </div>
-
-              {/* Slider 2: Strike Price */}
-              <div className="space-y-2.5">
-                <div className="flex justify-between text-xs font-mono font-bold">
-                  <span className="text-brand-border/75">Option Strike (K)</span>
-                  <span className="text-brand-border font-black">${params.strikePrice.toFixed(1)}</span>
-                </div>
-                <input
-                  type="range"
-                  min="50"
-                  max="200"
-                  step="0.5"
-                  value={params.strikePrice}
-                  onChange={(e) => handleSliderChange('strikePrice', parseFloat(e.target.value))}
-                  className="w-full accent-[#0A0A0A] cursor-pointer bg-[#EAEAE9] rounded-none h-2"
-                />
-                <div className="flex justify-between text-[9px] text-brand-border/40 font-mono font-black">
-                  <span>$50.0</span>
-                  <span>$125.0</span>
-                  <span>$200.0</span>
-                </div>
-              </div>
-
-              {/* Slider 3: Expiry (Days) */}
-              <div className="space-y-2.5">
-                <div className="flex justify-between text-xs font-mono font-bold">
-                  <span className="text-brand-border/75">Days to Expiration (T)</span>
-                  <span className="text-brand-border font-black">{params.daysToExpiration} days</span>
-                </div>
-                <input
-                  type="range"
-                  min="1"
-                  max="365"
-                  step="1"
-                  value={params.daysToExpiration}
-                  onChange={(e) => handleSliderChange('daysToExpiration', parseInt(e.target.value))}
-                  className="w-full accent-[#0A0A0A] cursor-pointer bg-[#EAEAE9] rounded-none h-2"
-                />
-                <div className="flex justify-between text-[9px] text-brand-border/40 font-mono font-black">
-                  <span>1 day</span>
-                  <span>180 days</span>
-                  <span>365 days</span>
-                </div>
-              </div>
-
-              {/* Slider 4: Implied Volatility (%) */}
-              <div className="space-y-2.5">
-                <div className="flex justify-between text-xs font-mono font-bold">
-                  <span className="text-brand-border/75">Implied Volatility (σ)</span>
-                  <span className="text-brand-border font-black">{params.volatility}%</span>
-                </div>
-                <input
-                  type="range"
-                  min="5"
-                  max="150"
-                  step="1"
-                  value={params.volatility}
-                  onChange={(e) => handleSliderChange('volatility', parseFloat(e.target.value))}
-                  className="w-full accent-[#0A0A0A] cursor-pointer bg-[#EAEAE9] rounded-none h-2"
-                />
-                <div className="flex justify-between text-[9px] text-brand-border/40 font-mono font-black">
-                  <span>5% (Low)</span>
-                  <span>75%</span>
-                  <span>150% (High)</span>
-                </div>
-              </div>
-
-              {/* Slider 5: Interest Rate (%) */}
-              <div className="space-y-2.5">
-                <div className="flex justify-between text-xs font-mono font-bold">
-                  <span className="text-brand-border/75">Risk-Free Interest Rate (r)</span>
-                  <span className="text-brand-border font-black">{params.interestRate.toFixed(2)}%</span>
-                </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="12"
-                  step="0.05"
-                  value={params.interestRate}
-                  onChange={(e) => handleSliderChange('interestRate', parseFloat(e.target.value))}
-                  className="w-full accent-[#0A0A0A] cursor-pointer bg-[#EAEAE9] rounded-none h-2"
-                />
-                <div className="flex justify-between text-[9px] text-brand-border/40 font-mono font-black">
-                  <span>0.00%</span>
-                  <span>6.00%</span>
-                  <span>12.00%</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-[10px] text-brand-border/60 border-t-2 border-brand-border bg-[#FAF9F6] -mx-6 -mb-6 p-4.5 flex items-center gap-2 font-black uppercase">
-              <Sparkles className="w-3.5 h-3.5 text-brand-green flex-shrink-0" />
-              <span>BSM analytics calculated inside React state hook flow.</span>
-            </div>
+        {/* Modern Market Structure & Quantamental View Analysis Section */}
+        <div className="space-y-8 text-left">
+          <div className="space-y-2">
+            <h3 className="font-mono text-xs font-black text-brand-cyan uppercase tracking-widest flex items-center gap-2">
+              <span className="w-2.5 h-2.5 bg-brand-cyan animate-pulse" />
+              {lang === 'en' ? 'DEEPER DERIVATIVES RESEARCH & HIGHER MECHANICS' : '买方深水博弈 —— 二级筹码与另类期望对齐'}
+            </h3>
+            <h2 className="text-2xl sm:text-3xl font-black text-brand-border uppercase">
+              {lang === 'en' ? 'MY OPTION PHILOSOPHY' : '我对期权的理解'}
+            </h2>
+            <p className="text-xs text-brand-border/60 font-medium max-w-3xl font-sans">
+              {lang === 'en'
+                ? 'Deconstructing real-time pricing inefficiencies, dealer hedging thresholds, and cross-market expected value alignments.'
+                : '通过二级市场期权流的非线性对冲行为，穿透做市商关键阈值，并对齐另类预测市场的期望对冲偏离。'}
+            </p>
           </div>
 
-          {/* Right Block: Output & Greeks Metrics (Size 7 on 12) */}
-          <div className="lg:col-span-7 flex flex-col justify-between gap-6">
-            
-            {/* Theoretical premium panel */}
-            <div className="border-2 border-brand-border bg-white p-6 rounded-none shadow-[6px_6px_0px_#0A0A0A] relative overflow-hidden flex flex-col justify-center">
-              <p className="text-[10px] font-mono font-black uppercase text-brand-border/50 tracking-widest mb-1">
-                THEORETICAL OPTION VALUE (PREMIUM)
-              </p>
-              
-              <div className="flex items-baseline gap-2.5">
-                <span className="text-4xl sm:text-5xl font-black font-mono text-brand-border">
-                  ${greeks.price.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 4 })}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Card 1: Gamma Game */}
+            <div className="border-2 border-brand-border bg-[#FCFCFA] p-6 rounded-none shadow-[5px_5px_0px_#0A0A0A] space-y-4">
+              <div className="flex items-center gap-2 border-b border-brand-border/10 pb-3">
+                <span className="px-2 py-0.5 bg-[#0A0A0A] text-white font-mono text-[9px] font-black uppercase">
+                  GEX GAME
                 </span>
-                <span className="text-xs font-mono font-black text-brand-green uppercase">
-                  / Contract Share
-                </span>
+                <h4 className="font-black text-sm text-brand-border uppercase tracking-tight">
+                  {lang === 'en' ? 'Modern US Equity Structures & Gamma dynamics (03:00 - 07:00)' : '解构现代美股结构 —— 极端“期权化”下的 Gamma 游戏（03:00 - 07:00）'}
+                </h4>
               </div>
               
-              <p className="text-xs text-brand-border/80 mt-3 font-semibold leading-relaxed">
-                {params.optionType === 'call' ? 'Call option' : 'Put option'} contracts with strike price of ${params.strikePrice} are currently valued at <span className="text-brand-border font-black underline decoration-brand-green decoration-2">${(greeks.price * 100).toFixed(2)}</span> total premium per standard 100-share bundle in risk-neutral pricing conditions.
-              </p>
-            </div>
+              <div className="text-xs text-brand-border/85 font-medium leading-relaxed font-sans space-y-4">
+                <p>
+                  {lang === 'en'
+                    ? "Based on 13 years of buy-side trading depth, the modern US cash market is no longer a static valuation venue governed by the classical Efficient Market Hypothesis (EMH) found in standard textbooks. Today's market is dominated by two immense gravitational fields: Narrative Aggregation and systematic Optionization."
+                    : "基于这 13 年的买方沉淀，我想和团队非常冷酷地拆解一下我眼中的现代美股市场结构。现在的美国二级市场，早就不是传统教科书里依靠有效市场假说（EMH）运行的静态估值场所了。今天的市场，由两个核心引力场支配：极致的“叙事抱团（Narrative Aggregation）”与结构性的“全面期权化（Optionization）”。"}
+                </p>
+                <p>
+                  {lang === 'en'
+                    ? "According to official OCC and Cboe data, options trading volume has shattered records to surpass 15.2 billion contracts. More startling is the demographic tilt: retail and high-frequency customer accounts now approach a near-record 46% of total transactions. In SPX, 0DTE (Zero Days to Expiration) contracts now represent 59% of total derivative volume. This implies that massive intraday stock velocity is no longer determined by EPS or typical multiple valuation metrics, but is instead violently driven and herd-stampeded by Wall Street market makers rehedging dynamically to maintain Delta neutrality."
+                    : "根据 OCC（美国期权清算公司）与 Cboe 的官方数据，整个美股上市期权总交易量已经冲破了 152 亿张合约的历史极值。更可怕的是结构性改变：美股市场交易用户的占比发生了彻底倾斜，散户与高频衍生品机构的 customer 交易占比已逼近 46% 的历史高位；以 SPX 为例，0DTE（当天到期）期权交易量已经霸占了衍生品总量的 59%。这意味着，美股的日内巨幅动量，在很大程度上不再由传统的 EPS 或 P/E 倒数决定，而是被华尔街做市商（Market Makers）为了保持 Delta 中性而形成的盘内被迫对冲行为无情踩踏 and 裹挟出来的。"}
+                </p>
+                <p>
+                  {lang === 'en'
+                    ? "Taking highly volatile momentum equities such as TSLA or MSTR as examples: when massive pools of retail and system players flood specific out-of-the-money (OTM) call strikes, market makers keeping Delta neutral are forced to buy spot shares at geometric speed to hedge Short Gamma. This triggers a self-reinforcing upward feedback loop—the Gamma Squeeze. If an AI platform's understanding of financial content is limited to autogenerating news summaries and static financial statements, it is merely dumping raw noise onto users. True high-scarcity, actionable 'Signal' resides exactly inside these non-linear derivative positioning charts."
+                    : "以 TSLA 或 MSTR（微策略）这种高贝塔标的为例：当海量散户和动量机构在特定行权价疯狂买入 OTM Call 时，做市商为了保持自身的 Delta 中性，必须在现货市场以几何级速度同步买入股票对冲 Short Gamma。这就触发了自我强化的正反馈漩涡——Gamma Squeeze（Gamma 逼空）。如果一个 AI 产品对金融内容的理解，还停留在给用户自动抓取新闻简报、自动写一段静态财务摘要，那就是在把无意义的“噪音（Noise）”堆砌给用户。真正具备战术稀缺性的“信号（Signal）”，恰恰隐藏在这些非线性的期权筹码分布里。"}
+                </p>
+              </div>
 
-            {/* Grid of details for Delta, Gamma, Vega, Theta */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              
-              {/* Delta Card */}
-              <div className="border-2 border-brand-border bg-white p-5 rounded-none shadow-[4px_4px_0px_#0A0A0A] space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono uppercase text-brand-border font-black">Delta (Δ)</span>
-                  <span className="text-[9px] font-mono font-black uppercase bg-[#FAF9F6] border border-brand-border px-1.5 py-0.5 rounded-none text-brand-green">EQUITY HEDGE</span>
-                </div>
-                <div className="flex items-baseline justify-between">
-                  <p className="text-2xl font-black font-mono text-[#0A0A0A] leading-none">
-                    {greeks.delta.toFixed(4)}
-                  </p>
-                  <p className="text-[9px] font-mono text-brand-border/40 font-black uppercase">
-                    CORRELATION
-                  </p>
-                </div>
-                {/* Visual bar meter for Delta */}
-                <div className="space-y-1.5">
-                  <div className="flex justify-between text-[9px] text-brand-border/50 font-mono font-bold">
-                    <span>{params.optionType === 'call' ? 'OTM (0)' : 'ITM (-1)'}</span>
-                    <span>{params.optionType === 'call' ? 'ITM (1)' : 'OTM (0)'}</span>
+              {/* Three Indicators Sub-Grid */}
+              <div className="bg-white border border-brand-border/30 p-4 space-y-3">
+                <span className="text-[9px] font-mono font-black text-brand-cyan uppercase tracking-widest block">
+                  {lang === 'en' ? 'DEALER HEDGING KEY INDICATORS:' : '我自己的日内盯盘和投研框架（三个核心指标维度）:'}
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-sans">
+                  <div className="space-y-1">
+                    <span className="font-mono font-black text-[#0A0A0A] text-[10px] block">1. Gamma Wall (Gamma 墙)</span>
+                    <p className="text-brand-border/75 leading-normal text-[11.5px] font-medium text-justify">
+                      {lang === 'en' 
+                        ? 'Extreme GEX strike concentration. It is the strongest intraday dealer hedging barrier; spot crossing it triggers non-linear volatility (Pin Risk turning into Run Risk).' 
+                        : 'GEX（Gamma 敞口）在某一 Strike（行权价）上的极端聚集。这是做市商盘内对冲的最强阻力位。现货价格一旦刺穿 Gamma 墙，往往伴随着波动率的非线性非对称爆发（Pin Risk 转化为 Run Risk）。'}
+                    </p>
                   </div>
-                  <div className="h-2.5 w-full bg-[#EAEAE9] rounded-none border border-brand-border/20 overflow-hidden relative">
-                    <div 
-                      className={`h-full ${getDeltaColors(greeks.delta).bar} rounded-none border-r border-[#0A0A0A]`}
-                      style={{ 
-                        width: `${Math.abs(greeks.delta) * 100}%`,
-                        marginLeft: params.optionType === 'put' ? `${(1 + greeks.delta) * 100}%` : '0%'
-                      }}
-                    />
+                  <div className="space-y-1">
+                    <span className="font-mono font-black text-[#0A0A0A] text-[10px] block">2. Zero Gamma Line</span>
+                    <p className="text-brand-border/75 leading-normal text-[11.5px] font-medium text-justify">
+                      {lang === 'en' 
+                        ? 'The ultimate risk watershed. Above, dealers are Long Gamma (stabilizing with buy-low/sell-high). Below, they turn Short Gamma (trading with trend momentum, amplifying market corrections into panic-selling feed loops).' 
+                        : '这是市场风险特征的绝对分水岭。在零 Gamma 线之上，做市商处于 Long Gamma 状态，其对冲动作是“高抛低吸”，扮演市场波动率的镇定剂；一旦现货跌破零 Gamma 线，做市商瞬间切换为 Short Gamma 状态，对冲动作变为“追涨杀跌”，任何微小的利空都会在盘中被做市商的对冲盘放大为恐慌性踩踏（Sell-off）。'}
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="font-mono font-black text-[#0A0A0A] text-[10px] block">3. IV Crush 拦截机制</span>
+                    <p className="text-brand-border/75 leading-normal text-[11.5px] font-medium text-justify">
+                      {lang === 'en' 
+                        ? 'On high-volatility, debt-leveraged assets like MSTR leading into catalysts, IV frequently spikes past the 95th percentile. Purchasing expensive flat premiums leads to devastating 80%+ decay once IV collapses post-event.' 
+                        : '针对 MSTR 这种伴随比特币溢价的高波资产，在其发债、财报或重大地缘宏观催化剂前夜，期权的隐含波动率（IV）经常会被买到历史的 95th Percentile（95%分位数）以上。此时如果交易者盲目买入单向 Options，权利金资产极其昂贵，即便方向赌对，事件落地瞬间 IV 发生悬崖式崩塌（IV Crush），也会吃掉 80% 以上的期权合约价值。'}
+                    </p>
                   </div>
                 </div>
-                <p className="text-[11px] text-brand-border/80 font-medium leading-relaxed">
-                  Measures expected option price adjustment for a $1 increase in spot. Suggests holding <span className={`font-black ${getDeltaColors(greeks.delta).text}`}>{Math.abs(greeks.delta * 100).toFixed(1)} shares</span> for delta-neutral equity hedging.
-                </p>
+                <div className="pt-2.5 border-t border-brand-border/10 text-[10px] font-mono font-bold text-brand-border/75">
+                  {lang === 'en'
+                    ? "This is why high-value option analytics enjoy intense user reliance—high-complexity trading directly triggers raw human fears of capital loss."
+                    : "这就是为什么我坚信高附加值的期权分析工具有着极强的强用户依赖属性——因为高认知、高复杂的期权交易，直接伴随着人性对真金白银资产受损的极致恐惧。"}
+                </div>
               </div>
-
-              {/* Gamma Card */}
-              <div className="border-2 border-brand-border bg-white p-5 rounded-none shadow-[4px_4px_0px_#0A0A0A] space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono uppercase text-brand-border font-black">Gamma (Γ)</span>
-                  <span className="text-[9px] font-mono font-black uppercase bg-[#FAF9F6] border border-brand-border px-1.5 py-0.5 rounded-none text-brand-cyan">ACCELERATION</span>
-                </div>
-                <div className="flex items-baseline justify-between">
-                  <p className="text-2xl font-black font-mono text-[#0A0A0A] leading-none">
-                    {greeks.gamma.toFixed(5)}
-                  </p>
-                  <p className="text-[9px] font-mono text-brand-border/40 font-black uppercase">
-                    RESPONSIVENESS
-                  </p>
-                </div>
-                <p className="text-[11px] text-brand-border/80 font-medium leading-relaxed">
-                  Rate of change in Delta per $1 adjustment in stock price. Peer gamma peaks when option strikes are At-The-Money (${params.stockPrice.toFixed(0)}) and decays toward zero near expiration.
-                </p>
-              </div>
-
-              {/* Vega Card */}
-              <div className="border-2 border-brand-border bg-white p-5 rounded-none shadow-[4px_4px_0px_#0A0A0A] space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono uppercase text-brand-border font-black">Vega (ν)</span>
-                  <span className="text-[9px] font-mono font-black uppercase bg-[#FAF9F6] border border-brand-border px-1.5 py-0.5 rounded-none text-brand-cyan">VOLATILITY</span>
-                </div>
-                <div className="flex items-baseline justify-between">
-                  <p className="text-2xl font-black font-mono text-[#0A0A0A] leading-none">
-                    +${greeks.vega.toFixed(4)}
-                  </p>
-                  <p className="text-[9px] font-mono text-brand-border/40 font-black uppercase">
-                    PER +1% IV SHIFT
-                  </p>
-                </div>
-                <p className="text-[11px] text-brand-border/80 font-medium leading-relaxed">
-                  Measures sensitivity of option premium to a 1% change in Implied Volatility. If IV increases from {params.volatility}% to {(params.volatility + 1)}%, option premium increases by <span className="text-brand-cyan font-black">${greeks.vega.toFixed(4)}</span>.
-                </p>
-              </div>
-
-              {/* Theta Card */}
-              <div className="border-2 border-brand-border bg-white p-5 rounded-none shadow-[4px_4px_0px_#0A0A0A] space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono uppercase text-brand-border font-black">Theta (θ)</span>
-                  <span className="text-[9px] font-mono font-black uppercase bg-[#FAF9F6] border border-brand-border px-1.5 py-0.5 rounded-none text-red-600">TIME DECAY</span>
-                </div>
-                <div className="flex items-baseline justify-between">
-                  <p className="text-2xl font-black font-mono text-red-600 leading-none">
-                    {greeks.theta.toFixed(4)}
-                  </p>
-                  <p className="text-[9px] font-mono text-brand-border/40 font-black uppercase">
-                    DAILY BLOOD LOSS
-                  </p>
-                </div>
-                <p className="text-[11px] text-brand-border/80 font-medium leading-relaxed">
-                  Expected change in option price for a 1-day decrease in expiration. Premium bleeds by <span className="text-red-500 font-bold">${Math.abs(greeks.theta).toFixed(4)}</span> daily while spot and implied volatility remain constant.
-                </p>
-              </div>
-
             </div>
 
-          </div>
+            {/* Card 2: Cross Market EV Arbitrage */}
+            <div className="border-2 border-brand-border bg-[#FCFCFA] p-6 rounded-none shadow-[5px_5px_0px_#0A0A0A] space-y-4">
+              <div className="flex items-center gap-2 border-b border-brand-border/10 pb-3">
+                <span className="px-2 py-0.5 bg-[#0A0A0A] text-white font-mono text-[9px] font-black uppercase">
+                  EV ALIGNMENT
+                </span>
+                <h4 className="font-black text-sm text-brand-border uppercase tracking-tight">
+                  {lang === 'en' ? 'Quantamental View & Cross-Market Expected Value Arbitrage (07:00 - 11:00)' : '⏱️ 第三阶段：定义现代量化观 —— 另类跨市场“期望值套利”（07:00 - 11:00）'}
+                </h4>
+              </div>
 
+              <div className="text-xs text-brand-border/85 font-medium leading-relaxed font-sans space-y-4">
+                <p>
+                  {lang === 'en'
+                    ? "This directly shapes my Quantamental View. Many legacy institutional and large tech quant teams are trapped in a dead end of 'Overfitting the Past'. They rely excessively on backtesting historical price bars or trailing factors to regress future moves. These static factor structures suffer from severe lag during macro liquidity shifts and black swan crises, easily leading to devastating drawdowns in liquidity traps."
+                    : "这也直接推导出了我的“量化观（Quantamental View）”。现在很多老牌机构或中资大厂的量化团队，正在陷入一个“过度拟合过去”的死胡同。他们过度依赖历史的 K 线、财报因子跑多因子回归，去预测未来的走势。这种静态因子模型在遇到宏观地缘流动性剧变 and 突发黑天鹅时，天然具备严重的滞后性（Lagging），容易在流动性陷阱里遭遇毁灭性的回撤。"}
+                </p>
+                <p>
+                  {lang === 'en'
+                    ? "The quant trading I advocate revolves around: Cross-Market Expected Value Alignment."
+                    : "我崇尚的量化，核心是：动态跨市场期望值对齐（Cross-Market Expected Value Alignment）。"}
+                </p>
+                <p>
+                  {lang === 'en'
+                    ? "A core strategy that we actively trade and refine in my live applications (marcomoney.app and other options engines): aligning real-time betting odds from alternative macro prediction venues (e.g. Polymarket, Kalshi) against implied probabilities derived from Wall Street options surfaces at high-frequency 5-minute granularities."
+                    : "举一个我自己在 marcomoney.app 以及这次在 Alva 上交付的 options-risk-breaker 里面实际跑通并持续进化的底层策略：将 Polymarket/Kalshi 这种另类宏观预测市场的实时下注赔率概率，与美股指数/前月期权隐含波动率倒推出来的华尔街市场概率，进行 5 分钟颗粒度的高频数据流对齐。"}
+                </p>
+                <p>
+                  {lang === 'en'
+                    ? "Prediction platforms represent wild, nimble capital risking real money on upcoming economic prints (CPI, NFP, Fed pivot) unrestricted by rigid compliance mandates. Options lines, conversely, reflect cost barriers paid by traditional institutions protecting legacy spot equity portfolios. Since these liquidity pools and communities are fully segmented, implied event probabilities frequently drift by >5% to 10% on key catalyst eves."
+                    : "预测市场反映的是全球最敏锐、不受传统合规羁绊的“野生聪明钱”对非农数据、CPI、美联储降息码数的实时真金白银期望下注；而美股期权链则反映了华尔街大型传统机构为了保护现货组合头寸而支付的真实风险对冲成本。由于两者的流动性池 and 交易群体是天然割裂的，在重大宏观催化剂落地前夜，两者的隐含事件概率经常会出现大于 5% 甚至大于 10% 的统计学偏离。"}
+                </p>
+                <p>
+                  {lang === 'en'
+                    ? "When my agents monitor this divergence, they instantly compute prevailing Expected Value mispricings, guiding multi-leg trades: acquiring contract fractions on prediction venues while establishing balancing out-of-the-money options legs on US equity boards to capture risk-neutral delta arbitrage. True quant trading is never about sitting in an isolated regression chamber; it is a permanent, automated information cleaning engine capturing structural inefficiencies across alternative and derivative spaces."
+                    : "当我的 Agent 监测到这种偏离时，它能瞬间帮我计算出当前的 Expected Value（期望值）溢价，并指导我通过自动化通道一端买入预测市场的胜率合约，另一端在美股配置相应的 OTM 期权组合进行跨市场 delta 套利。真正的量化绝对不是躲在盒子里拟合历史 K 线，量化是一部长效运转的、去捕获跨品类衍生品与另类市场间定价失效（Pricing Inefficiency）的自动化信息清洗引擎。"}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
