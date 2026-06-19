@@ -107,28 +107,6 @@ export const PROJECTS: Project[] = [
     tags: ["React", "TypeScript", "D3.js", "Canvas2D", "FastAPI", "Python SciPy"],
     githubUrl: "https://github.com/decendao",
     playbookUrl: "https://alva.ai/u/decenfund/playbooks/options-risk-breaker"
-  },
-  {
-    title: {
-      en: "Broker API Router (Liquidity Aggregator)",
-      zh: "底层券商交易执行路由 (流动性聚合)"
-    },
-    subtitle: {
-      en: "Execution Gateway for Options Liquidity",
-      zh: "期权衍生品流动性执行网关"
-    },
-    description: {
-      en: "A secure, hot-swappable routing middleware facilitating order placement and client risk management on major platforms like Deribit and Paradigm. Employs circuit-breaker patterns and rate-limiting queues to manage slippage during periods of extreme high-volatility.",
-      zh: "低延迟的多底层券商交易执行网关，支持 Deribit、Paradigm 接口。利用滑动窗口断路器与智能排队等算法机制，在极端隐波崩溃期间显著降低对冲滑点。"
-    },
-    metrics: [
-      { label: { en: "Execution Slippage", zh: "交易滑点" }, value: "< 0.05%" },
-      { label: { en: "Latency Over Wire", zh: "物理线延迟" }, value: "8ms" },
-      { label: { en: "Daily Volume", zh: "日均执行额" }, value: "$4.5M+" },
-      { label: { en: "Fail Safe", zh: "故障容错" }, value: "99.999%" }
-    ],
-    tags: ["Node.js", "Express", "REST API", "Redis", "RxJS", "Docker"],
-    githubUrl: "https://github.com/decendao"
   }
 ];
 
