@@ -71,16 +71,16 @@ export const CORE_EXPERTISE = [
 
 export const THE_PITCH = {
   quote: {
-    en: "Remix friction scales with surface area, not capability.",
-    zh: "Remix 摩擦随表面积增长，不随能力增长。"
+    en: "An Agent is not a chatbot with RAG, but a 100% autonomous trading brain with ironclad risk-management protocols.",
+    zh: "智能体绝非套了 RAG 的对话框，而是 100% 自动驾驶的交易主脑与风控铁律。"
   },
   title: {
-    en: "The Pitch / My Ultimate Declaration",
-    zh: "💡 我的终极宣告 (The Pitch)"
+    en: "My Agent Philosophy",
+    zh: "💡 我的Agent哲学"
   },
   content: {
     en: "In today's retail public markets, flow and attention are superficial, transient, and lack long-term retention. Those who are truly hungry and fanatically willing to pay for Agent-driven analytics are emerging funds and proprietary trading teams locked out of $40,000/yr Bloomberg Terminals, alongside AI-native traders isolated inside localized code islands.\n\nEverything I build is aimed at democratizing elite Wall Street risk-management and arbitrage practices into plug-and-play, one-click 'Financial Agent Harnesses.' My mission is to bridge professional buy-side insight with elite AIME scaling, carving out a self-sustaining AI alpha engine on the global financial oceans.",
-    zh: "在今天的二级市场，散户的流量繁荣是虚假的，没有生存级粘性。而真正饥渴、愿意为了 Agent 基建偏执买单的，是那些买不起一年 4 万美金彭博终端的 Emerging Funds（小型对冲基金、自营团队），以及在本地用工具陷入黑盒代码孤岛的 AI 原生交易员。\n\n我所做的一切，就是将华尔街高不可攀的衍生品风控与套利特权，重构为开箱即用、一键 Remix 即可继承的 \"Financial Agent Harness\"（可执行内容基建）。我致力于连接买方思维与 AIME 算力，在全球金融公海上杀出真正的 AI 造血中心。"
+    zh: "一个真正能够替代人类进行实盘交易的 Agent，绝不是一个套了 RAG 的对话框，而是一个全自动驾驶的交易主脑——它必须拥有 100% 确定性的执行边界、秒级流式另类数据的清洗雷达，以及对抗极端隐波践踏的非线性风控硬编码断路器。\n\n作为Agent开发/架构师，是为这群具备“自动驾驶”野心的 AI 原生交易员与新兴量化团队，交付一套生产线级别的 Financial Agent Harness（智能体流式运行底座与中台外壳）。"
   }
 };
 

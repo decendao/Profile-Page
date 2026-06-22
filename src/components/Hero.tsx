@@ -282,7 +282,7 @@ export default function Hero({ lang }: HeroProps) {
 
             <div className="space-y-1">
               <span className="font-mono text-[10px] font-black text-brand-cyan uppercase tracking-widest block">
-                {lang === 'en' ? 'THE ULTIMATE PITCH' : '💡 凌鹏的终极宣告 (The Pitch)'}
+                {lang === 'en' ? 'MY AGENT PHILOSOPHY' : '💡 我的Agent哲学'}
               </span>
               <p className="font-mono text-sm sm:text-[15px] font-black italic text-brand-border uppercase tracking-tight max-w-2xl leading-snug">
                 "{THE_PITCH.quote[lang]}"
