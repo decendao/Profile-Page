@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import PricerWidget from './components/PricerWidget';
 import SelectedProjects from './components/SelectedProjects';
+import StrategyGallery from './components/StrategyGallery';
 import { motion, AnimatePresence } from 'motion/react';
 import { Terminal, Shield, Network, FileText, BarChart2, Undo, ArrowRight, Mail, Github, Twitter, Linkedin, MessageSquare } from 'lucide-react';
 import { PERSONAL_INFO } from './data/resumeData';
@@ -198,6 +199,9 @@ export default function App() {
 
                 {/* Dedicated Black-Scholes Greeks Calculator Page */}
                 <PricerWidget lang={lang} />
+
+                {/* Strategy diagram and portfolio gallery moved to second page */}
+                <StrategyGallery lang={lang} />
               </motion.div>
             )}
           </AnimatePresence>
