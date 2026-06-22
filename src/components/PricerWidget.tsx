@@ -34,7 +34,7 @@ export default function PricerWidget({ lang }: PricerWidgetProps) {
                   GEX GAME
                 </span>
                 <h4 className="font-black text-sm text-brand-border uppercase tracking-tight">
-                  {lang === 'en' ? 'Modern US Equity Structures & Gamma dynamics (03:00 - 07:00)' : '解构现代美股结构 —— 极端“期权化”下的 Gamma 游戏（03:00 - 07:00）'}
+                  {lang === 'en' ? 'Modern US Equity Structures & Gamma dynamics' : '解构现代美股结构 —— 极端“期权化”下的 Gamma 游戏'}
                 </h4>
               </div>
               
@@ -102,7 +102,7 @@ export default function PricerWidget({ lang }: PricerWidgetProps) {
                   EV ALIGNMENT
                 </span>
                 <h4 className="font-black text-sm text-brand-border uppercase tracking-tight">
-                  {lang === 'en' ? 'Quantamental View & Cross-Market Expected Value Arbitrage (07:00 - 11:00)' : '定义现代量化观 —— 另类跨市场“期望值套利”（07:00 - 11:00）'}
+                  {lang === 'en' ? 'Quantamental View & Cross-Market Expected Value Arbitrage' : '定义现代量化观 —— 另类跨市场“期望值套利”'}
                 </h4>
               </div>
 

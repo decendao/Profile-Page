@@ -152,9 +152,6 @@ export default function App() {
 
                     {/* Social Handles Row */}
                     <div className="pt-3.5 border-t border-brand-border/10 flex flex-wrap gap-4 items-center justify-start">
-                      <span className="text-[9px] font-mono font-black text-brand-border/40 uppercase tracking-widest leading-none">
-                        {lang === 'en' ? 'Professional networks:' : '专业社群与网络:'}
-                      </span>
                       <a
                         href={PERSONAL_INFO.twitter}
                         target="_blank"
